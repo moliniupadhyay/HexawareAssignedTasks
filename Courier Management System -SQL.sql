@@ -1,5 +1,6 @@
 CREATE DATABASE CourierManagement;
 USE CourierManagement;
+-- task 1
 CREATE TABLE Users (
     UserID INT PRIMARY KEY AUTO_INCREMENT,
     Name VARCHAR(255) NOT NULL,
@@ -78,6 +79,7 @@ VALUES
 (2, 2, 200.00, '2024-09-18'), 
 (1, 3, 300.00, '2024-09-20');  
 
+-- task 2
 SELECT * FROM Users;
 SELECT * FROM Couriers WHERE SenderName = 'Rahul Kumar'; 
 SELECT * FROM Couriers;
@@ -98,6 +100,7 @@ SELECT C.*
 FROM Couriers C
 JOIN Payments P ON C.CourierID = P.CourierID
 WHERE P.Amount > 50;
+
 
 
 
