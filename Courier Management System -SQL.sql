@@ -101,6 +101,71 @@ FROM Couriers C
 JOIN Payments P ON C.CourierID = P.CourierID
 WHERE P.Amount > 50;
 
+-- task 3
+-- 3.1
+select e.employeeid, e.name, count(c.courierid) as totalcouriershandled
+from employees e
+join couriers c on e.employeeid = c.courierid
+group by e.employeeid, e.name;
+
+-- 3.2
+select l.locationid, l.locationname, sum(p.amount) as totalrevenue
+from locations l
+join payments p on l.locationid = p.locationid
+group by l.locationid, l.locationname;
+
+-- 3.3
+select l.locationid, l.locationname, count(c.courierid) as totalcouriersdelivered
+from locations l
+join couriers c on l.locationid = c.courierid
+where c.status = 'delivered'
+group by l.locationid, l.locationname;
+
+-- 3.4
+select courierid, avg(datediff(deliverydate, '2024-09-01')) as avgdeliverytime
+from couriers
+where deliverydate is not null
+group by courierid
+order by avgdeliverytime desc
+limit 1;
+
+-- 3.5
+select l.locationid, l.locationname, sum(p.amount) as totalpayments
+from locations l
+join payments p on l.locationid = p.locationid
+group by l.locationid, l.locationname
+having totalpayments < 500;
+
+-- 3.6
+select l.locationid, l.locationname, sum(p.amount) as totalpayments
+from locations l
+join payments p on l.locationid = p.locationid
+group by l.locationid, l.locationname;
+
+-- 3.7
+select c.courierid, sum(p.amount) as totalpayments
+from couriers c
+join payments p on c.courierid = p.courierid
+where p.locationid = 1
+group by c.courierid
+having totalpayments > 1000;
+
+-- 3.8
+select c.courierid, sum(p.amount) as totalpayments
+from couriers c
+join payments p on c.courierid = p.courierid
+where p.paymentdate > '2024-09-19'
+group by c.courierid
+having totalpayments > 1000;
+
+-- 3.9
+select l.locationid, l.locationname, sum(p.amount) as totalpayments
+from locations l
+join payments p on l.locationid = p.locationid
+where p.paymentdate < '2024-09-20'
+group by l.locationid, l.locationname
+having totalpayments > 5000;
+
 
 
 
